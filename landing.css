@@ -1,0 +1,78 @@
+
+header {
+  background:white
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.header-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+header p {
+  margin: 5px 0 0;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.hero {
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url("background.jpg") no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.hero-content .btn {
+  background: #4a90e2;
+  padding: 12px 24px;
+  border-radius: 6px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.hero-content .btn:hover {
+  background: #357ABD;
+}
+
+.info {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 20px;
+  line-height: 1.7;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.info h2 {
+  margin-bottom: 15px;
+  color: #4a90e2;
+}
+
+
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+}

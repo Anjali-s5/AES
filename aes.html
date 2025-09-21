@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AES Encryption Tool</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <h1>AES Encryption Tool</h1>
+  </header>
+
+  <main class="container">
+    <p>
+      Enter a message and a secret key below to see how AES encryption and decryption work.
+      You can also choose between <strong>128-bit</strong>, <strong>192-bit</strong>, and <strong>256-bit</strong> key sizes.
+    </p>
+
+    <label for="message">Message:</label>
+    <textarea id="message" rows="3" placeholder="Enter your message..."></textarea>
+
+
+    <label for="key">Key:</label>
+    <input type="text" id="key" placeholder="Enter secret key...">
+
+    <div class="form-group">
+      <label for="keySize">Select Key Size:</label>
+      <select id="keySize">
+        <option value="128">128-bit</option>
+        <option value="192">192-bit</option>
+        <option value="256">256-bit</option>
+      </select>
+    </div>
+
+  
+    <button onclick="encryptMessage()">Encrypt</button>
+    <button onclick="decryptMessage()">Decrypt</button>
+
+ 
+    <h3>Encrypted Text:</h3>
+    <div class="output" id="encryptedOutput"></div>
+
+    <h3>Decrypted Text:</h3>
+    <div class="output" id="decryptedOutput"></div>
+
+  
+    <a href="index.html">
+      <button class="back-btn">⬅ Back to Home</button>
+    </a>
+  </main>
+
+  <script>
+    function getKey(key, size) {
+      // Ensure key length matches the selected size
+      const hash = CryptoJS.SHA256(key).toString();
+      if (size === 128) return CryptoJS.enc.Hex.parse(hash.substring(0, 32));
+      if (size === 192) return CryptoJS.enc.Hex.parse(hash.substring(0, 48));
+      if (size === 256) return CryptoJS.enc.Hex.parse(hash.substring(0, 64));
+    }
+
+    function encryptMessage() {
+      const message = document.getElementById("message").value;
+      const keyText = document.getElementById("key").value;
+      const size = parseInt(document.getElementById("keySize").value);
+
+      if (!message || !keyText) {
+        alert("Please enter both a message and a key.");
+        return;
+      }
+
+      const key = getKey(keyText, size);
+      const encrypted = CryptoJS.AES.encrypt(message, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+      });
+      document.getElementById("encryptedOutput").innerText = encrypted.toString();
+    }
+
+    function decryptMessage() {
+      const encryptedText = document.getElementById("encryptedOutput").innerText;
+      const keyText = document.getElementById("key").value;
+      const size = parseInt(document.getElementById("keySize").value);
+
+      if (!encryptedText || !keyText) {
+        alert("Please encrypt a message first, and provide the key.");
+        return;
+      }
+
+      const key = getKey(keyText, size);
+      const decrypted = CryptoJS.AES.decrypt(encryptedText, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+      });
+      document.getElementById("decryptedOutput").innerText = decrypted.toString(CryptoJS.enc.Utf8);
+    }
+  </script>
+</body>
+</html>
